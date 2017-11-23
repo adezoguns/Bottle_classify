@@ -11,8 +11,7 @@ def Getpics(path):
 	for pic in file_arr:
 		if '.jpg' in pic:
 			arr.append(pic)
-			img=cv2.imread(mypath+'/'+pic)
-			#cv2.imshow('frame', img)	
+			img=cv2.imread(mypath+'/'+pic)	
 			cv2.imwrite(path+"/Mypath/"+pic, img) 
 
 if __name__=="__main__":
