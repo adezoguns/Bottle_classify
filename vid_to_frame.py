@@ -9,7 +9,7 @@ success,frame = capture.read()
 
 while success:
 	'''This program helps to
-			 convert videos to frames'''
+			 converts videos to frames'''
 	
 	cv2.imwrite("/home/deola/Bottle_classify/Alcohol_dataset/Ricard/R8/R8%d.jpg" %count, frame)   
 	#cv2.imshow("frame%d" %count,frame)
