@@ -2,6 +2,7 @@ import os
 import cv2
 import shutil
 from random import randint
+import random
 
 arr=[]
 arr1=[]
@@ -47,26 +48,55 @@ def Cutsomepics(path, numb):
 				cv2.imwrite(path+"/myReduPath/"+pic, img) 
 
 def Randrearrangepics(path):
-	'''This function creates a flolder myRandPath and randomly rearrange
+	'''This function creates a folder myRandPath and randomly rearrange
 	the pics in the folder in the folder'''
 	
 	mypath=path
+	count=0
 	if os.path.isdir(path+"/myRandPath")==False:
                 os.mkdir(path+"/myRandPath")
 	else:
 		 shutil.rmtree(path+"/myRandPath")
 		 os.mkdir(path+"/myRandPath")
 	file_arr=os.listdir(mypath)
+	random.shuffle(file_arr)
 	for pic in file_arr:
 		if '.jpg' in pic:
-			arr.append(pic)
 			img=cv2.imread(mypath+'/'+pic)
-			num=randint(0, len(file_arr))	
-			cv2.imwrite(path+"/myRandPath/%d.jpg" %num, img)
+			cv2.imwrite(path+"/myRandPath/%d.jpg" %count, img)
+			count=count+1
 
+def Splitpicstotesttrain(path, percent):
+	'''This function creates a folder myTestPath and myTrainPath and put the test and train
+	split into the myTestPath and myTrainPath. Percent is the amount of the test dataset to 
+	train dataset'''
+	
+	mypath=path
+	count=0
+	per=percent/100.0
+	print per
+	if os.path.isdir(path+"/myTestPath")==False and os.path.isdir(path+"/myTrainPath")==False:
+                os.mkdir(path+"/myTestPath")
+		os.mkdir(path+"/myTrainPath")
+	else:
+		shutil.rmtree(path+"/myTestPath")
+		shutil.rmtree(path+"/myTrainPath")
+		os.mkdir(path+"/myTestPath")
+		os.mkdir(path+"/myTrainPath")
+	file_arr=os.listdir(mypath)
+	random.shuffle(file_arr)
+	file_size=(len(file_arr))*per
+	for pic in file_arr:
+		if '.jpg' in pic:
+			img=cv2.imread(mypath+'/'+pic)
+			if count<=file_size:	
+				cv2.imwrite(path+"/myTestPath/"+pic, img)
+			else:
+				cv2.imwrite(path+"/myTrainPath/"+pic, img)
+		count=count+1
 
 if __name__=="__main__":
 	#Getpics('/home/deola/Bottle_classify/RGB_Boy')
 	#Cutsomepics('/home/deola/Bottle_classify/RGB_Boy', 10)
-	Randrearrangepics('/home/deola/Bottle_classify/RGB_Boy')
-	
+	#Randrearrangepics('/home/deola/Bottle_classify/RGB_Boy')
+	Splitpicstotesttrain('/home/deola/Bottle_classify/RGB_Boy', 10)
