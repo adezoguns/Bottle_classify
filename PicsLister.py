@@ -62,9 +62,12 @@ def Randrearrangepics(path):
 	random.shuffle(file_arr)
 	for pic in file_arr:
 		if '.jpg' in pic:
-			img=cv2.imread(mypath+'/'+pic)
-			cv2.imwrite(path+"/myRandPath/%d.jpg" %count, img)
-			count=count+1
+			arr.append(pic)
+	random.shuffle(arr)
+	for pic in arr:
+		img=cv2.imread(mypath+'/'+pic)
+		cv2.imwrite(path+"/myRandPath/%d.jpg" %count, img)
+		count=count+1
 
 def Splitpicstotesttrain(path, percent):
 	'''This function creates a folder myTestPath and myTrainPath and put the test and train
@@ -74,7 +77,6 @@ def Splitpicstotesttrain(path, percent):
 	mypath=path
 	count=0
 	per=percent/100.0
-	print per
 	if os.path.isdir(path+"/myTestPath")==False and os.path.isdir(path+"/myTrainPath")==False:
                 os.mkdir(path+"/myTestPath")
 		os.mkdir(path+"/myTrainPath")
@@ -85,18 +87,22 @@ def Splitpicstotesttrain(path, percent):
 		os.mkdir(path+"/myTrainPath")
 	file_arr=os.listdir(mypath)
 	random.shuffle(file_arr)
-	file_size=(len(file_arr))*per
 	for pic in file_arr:
 		if '.jpg' in pic:
-			img=cv2.imread(mypath+'/'+pic)
-			if count<=file_size:	
-				cv2.imwrite(path+"/myTestPath/"+pic, img)
-			else:
+			arr.append(pic)
+	random.shuffle(arr)
+	file_size=(len(arr))*per
+	print file_size, len(arr)
+	for pic in arr:
+		img=cv2.imread(mypath+'/'+pic)
+		if count<=file_size:	
+			cv2.imwrite(path+"/myTestPath/"+pic, img)
+		else:
 				cv2.imwrite(path+"/myTrainPath/"+pic, img)
 		count=count+1
 
 if __name__=="__main__":
 	#Getpics('/home/deola/Bottle_classify/RGB_Boy')
 	#Cutsomepics('/home/deola/Bottle_classify/RGB_Boy', 10)
-	#Randrearrangepics('/home/deola/Bottle_classify/RGB_Boy')
-	Splitpicstotesttrain('/home/deola/Bottle_classify/RGB_Boy', 10)
+	Randrearrangepics('/home/deola/Bottle_classify/RGB_Boy')
+	#Splitpicstotesttrain('/home/deola/Bottle_classify/RGB_Boy', 50)
