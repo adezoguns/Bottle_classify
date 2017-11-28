@@ -19,10 +19,32 @@ def Getpics(path):
 		 os.mkdir(path+"/myPath")
 	file_arr=os.listdir(mypath)
 	for pic in file_arr:
-		if '.jpg' in pic:
+		if '.jpg' in pic or '.jpeg' in pic:
 			arr.append(pic)
 			img=cv2.imread(mypath+'/'+pic)	
 			cv2.imwrite(path+"/myPath/"+pic, img) 
+
+def Change_jpeg_to_jpg(path):
+
+	'''This code changes .jpeg to .jpg and put it in a directory
+	called myPath'''
+
+	mypath=path
+	count=0
+	if os.path.isdir(path+"/myPath")==False:
+                os.mkdir(path+"/myPath")
+	else:
+		 shutil.rmtree(path+"/myPath")
+		 os.mkdir(path+"/myPath")
+	file_arr=os.listdir(mypath)
+	for pic in file_arr:
+		if '.jpg' in pic or '.jpeg' in pic:
+			arr.append(pic)
+			img=cv2.imread(mypath+'/'+pic)
+			#img=cv2.resize(img,(300,300))	
+			cv2.imwrite(path+"/myPath/Bottle%d" %count, img)
+			count=count+1 
+
 
 def Cutsomepics(path, numb):
 
@@ -53,11 +75,11 @@ def Randrearrangepics(path):
 	
 	mypath=path
 	count=0
-	if os.path.isdir(path+"/myRandPath")==False:
-                os.mkdir(path+"/myRandPath")
+	if os.path.isdir(mypath+"/myRandPath")==False:
+                os.mkdir(mypath+"/myRandPath")
 	else:
-		 shutil.rmtree(path+"/myRandPath")
-		 os.mkdir(path+"/myRandPath")
+		 shutil.rmtree(mypath+"/myRandPath")
+		 os.mkdir(mypath+"/myRandPath")
 	file_arr=os.listdir(mypath)
 	random.shuffle(file_arr)
 	for pic in file_arr:
