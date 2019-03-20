@@ -6,7 +6,7 @@ import random
 
 arr=[]
 arr1=[]
-def Getpics(path):
+def getpics(path):
 
 	'''This code creates a directory and puts all the images with .jpg 
 	extension into a directory into a director named Mypath'''
@@ -24,7 +24,7 @@ def Getpics(path):
 			img=cv2.imread(mypath+'/'+pic)	
 			cv2.imwrite(path+"/myPath/"+pic, img) 
 
-def Change_jpeg_to_jpg(path):
+def change_jpeg_to_jpg(path):
 
 	'''This code changes .jpeg to .jpg and put it in a directory
 	called myPath'''
@@ -46,7 +46,7 @@ def Change_jpeg_to_jpg(path):
 			count=count+1 
 
 
-def Cutsomepics(path, numb):
+def cut_some_pics(path, numb):
 
 	'''This function removes closely simillar pictures that are generated
 	side by side. The arg 'numb' can be use to determine the amount
@@ -69,7 +69,7 @@ def Cutsomepics(path, numb):
 				img=cv2.imread(mypath+'/'+pic)	
 				cv2.imwrite(path+"/myReduPath/"+pic, img) 
 
-def Randrearrangepics(path):
+def rand_rearrange_pics(path):
 	'''This function creates a folder myRandPath and randomly rearrange
 	the pics in the folder in the folder'''
 	
@@ -91,7 +91,7 @@ def Randrearrangepics(path):
 		cv2.imwrite(path+"/myRandPath/%d.jpg" %count, img)
 		count=count+1
 
-def Splitpicstotesttrain(path, percent):
+def split_pics_to_test_train(path, percent):
 	'''This function creates a folder myTestPath and myTrainPath and put the test and train
 	split into the myTestPath and myTrainPath. Percent is the amount of the test dataset to 
 	train dataset'''
@@ -124,7 +124,7 @@ def Splitpicstotesttrain(path, percent):
 		count=count+1
 
 if __name__=="__main__":
-	#Getpics('/home/deola/Bottle_classify/RGB_Boy')
-	#Cutsomepics('/home/deola/Bottle_classify/RGB_Boy', 10)
-	Randrearrangepics('/home/deola/Bottle_classify/RGB_Boy')
-	#Splitpicstotesttrain('/home/deola/Bottle_classify/RGB_Boy', 50)
+	#get_pics('/home/deola/Bottle_classify/RGB_Boy')
+	#cut_some_pics('/home/deola/Bottle_classify/RGB_Boy', 10)
+	rand_rearrange_pics('/home/deola/Bottle_classify/RGB_Boy')
+	#split_pics_to_test_train('/home/deola/Bottle_classify/RGB_Boy', 50)
